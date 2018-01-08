@@ -41,60 +41,37 @@ Creating the configurable service:
 ```
 ./iib mqsicreateconfigurableservice KRAKENNODE -c CICSConnection -o ESB2CICS -n cicsServer, securityIdentity -v tcp://<IP o nombre del servidor CICS>,cicsSI
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Creating the  Security Identity:
 
 ```
-Give an example
+./iib mqsisetdbparms KRAKENNODE -n cics::cicsSI -u <usuario CICS> -p <clave del usuario CICS>
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
+Restart the execution node for the changes to take effect:
 
 ```
-Give an example
+./iib mqsistop KRAKENNODE 
+./iib mqsistart KRAKENNODE
 ```
 
-## Deployment
+Deploy the Broker Archiver File (BAR File):
 
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+```
+./iib mqsideploy KRAKENNODE -e krakenexcec -a </BARs Files URI>/KrakenDS.bar
+```
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/israelcruzperez/krakends/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/israelcruzperez/krakends/tags). 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Israel Cruz** - *Initial work* - [linkedin](https://linkedin.com/in/israel-cruz-b9997429)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/israelcruzperez/krakends/graphs/contributors) who participated in this project.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
 
