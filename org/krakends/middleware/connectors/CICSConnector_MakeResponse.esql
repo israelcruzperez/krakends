@@ -1,0 +1,65 @@
+BROKER SCHEMA org.krakends.middleware.connectors
+
+
+CREATE COMPUTE MODULE CICSConnector_MakeResponse
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		-- mover toda el header extraido del input
+		SET OutputRoot.JSON.Data.CICSConnectorResponse.Client = Environment.Client;
+		
+		--SE CONSTRUYE MENSAJE DE SALIDA
+		--SET OutputRoot.JSON.Data.CICSConnectorRequest.CICS.ProgramId = Environment.INPUTMSGPROG;
+		--SET OutputRoot.JSON.Data.CICSConnectorRequest.CICS.Origin = Environment.INPUTMSGORIG;
+		--SET OutputRoot.JSON.Data.CICSConnectorRequest.CICS.UserCics = Environment.INPUTMSGUSUA;
+		--SET OutputRoot.JSON.Data.CICSConnectorRequest.ServiceId = Environment.INPUTMSGSRVI;
+		--SET OutputRoot.JSON.Data.CICSConnectorRequest.CICS.Parameters = Environment.INPUTMSGPARA;
+		
+		--RESCATAMOS ERROR CICS, CASO CONTRARIO 
+		--SETEAMOS CODIGO DE ERROR A '0' Y GLOSARETCORE A 'OK'
+				
+		IF 
+			Environment.ERROR <> ' ' THEN
+			SET OutputRoot.JSON.Data.CICSConnectorResponse.CICS.ErrorCode = Environment.ERROR;
+		    SET OutputRoot.JSON.Data.CICSConnectorResponse.CICS.ReasonCode = Environment.ERROR;
+		ELSE
+			SET OutputRoot.JSON.Data.CICSConnectorResponse.CICS.ErrorCode = '0'||REPLICATE(' ', 3);
+			SET OutputRoot.JSON.Data.CICSConnectorResponse.CICS.ReasonCode = 'OK'||REPLICATE(' ', 28);
+		END IF;
+		
+		--SETEAMOS VALOR DE LA DATA DEVUELTA POR CICS
+		--Eliminamos espacios en blanco del mensaje devuelto por CICS para que DP funcione OK
+		  DECLARE whiteSpace CONSTANT CHARACTER CAST( X'00' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace2 CONSTANT CHARACTER CAST( X'10' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace3 CONSTANT CHARACTER CAST( X'11' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace4 CONSTANT CHARACTER CAST( X'1c' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace5 CONSTANT CHARACTER CAST( X'01' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace6 CONSTANT CHARACTER CAST( X'14' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace7 CONSTANT CHARACTER CAST( X'18' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace8 CONSTANT CHARACTER CAST( X'7F' AS CHAR CCSID 1208);
+		  DECLARE whiteSpace9 CONSTANT CHARACTER CAST( X'02' AS CHAR CCSID 1208);
+		  
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace FROM Environment.msg5);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace2 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace3 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace4 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace5 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace6 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace7 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace8 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(whiteSpace9 FROM OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+		  
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace2, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace3, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace4, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace5, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace6, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace7, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace8, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = REPLACE(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea, whiteSpace9, ' ');
+		  SET OutputRoot.JSON.Data.CICSConnectorResponse.CommArea = TRIM(OutputRoot.JSON.Data.CICSConnectorResponse.CommArea);
+				   
+		RETURN TRUE;
+	END;
+END MODULE;

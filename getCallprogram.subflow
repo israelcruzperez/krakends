@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:org_krakends_middleware_connectors_CICSConnector.subflow="org/krakends/middleware/connectors/CICSConnector.subflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="getCallprogram.subflow" nsPrefix="getCallprogram.subflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="getCallprogram" bundleName="getCallprogram" pluginId="KrakenDS"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/KrakenDS/icons/full/obj16/getCallprogram.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/KrakenDS/icons/full/obj30/getCallprogram.gif"/>
+    <composition>
+      <nodes xmi:type="eflow:FCMSource" xmi:id="InTerminal.Input_1" location="25,38">
+        <translation xmi:type="utility:TranslatableString" key="Input" bundleName="getCallprogram" pluginId="KrakenDS"/>
+      </nodes>
+      <nodes xmi:type="eflow:FCMSink" xmi:id="OutTerminal.Output_1" location="531,37">
+        <translation xmi:type="utility:TranslatableString" key="Output" bundleName="getCallprogram" pluginId="KrakenDS"/>
+      </nodes>
+      <nodes xmi:type="org_krakends_middleware_connectors_CICSConnector.subflow:FCMComposite_1" xmi:id="FCMComposite_1_1" location="230,37">
+        <translation xmi:type="utility:ConstantString" string="CICSConnector"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_1" sourceNode="InTerminal.Input_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.Input"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_2" targetNode="OutTerminal.Output_1" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.Output" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard/>
+  </eClassifiers>
+</ecore:EPackage>
