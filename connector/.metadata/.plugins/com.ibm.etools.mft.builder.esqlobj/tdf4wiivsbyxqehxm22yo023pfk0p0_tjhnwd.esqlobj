@@ -1,0 +1,17 @@
+/*EATE FUNCTION Main() RETURNS BOOLE*/
+	BEGIN
+		DECLARE MsgIn CHARACTER;
+		DECLARE CICSReqMsg BLOB;
+		--SETEAMOS NOMBRE DE PROGRAMA A SER INVOCADO, VALIDANDO QUE EXISTA EL NOMBRE DEL PROGRAMA
+
+		SET OutputLocalEnvironment.Destination.CICS.CICSProgramName = InputLocalEnvironment.REST.Input.Parameters.programid;
+		--RESCATAMS LA DATA PARA INVICAR AL CICS
+		SET MsgIn = InputLocalEnvironment.REST.Input.Parameters.commarea;
+		--EXTRAEMOS LA TRX A SER EJECUTADA
+		SET OutputLocalEnvironment.Destination.CICS.mirrorTran =
+		SUBSTRING(InputRoot.JSON.Data.CICSConnectorRequest.CommArea FROM 1 FOR 4);
+		--SETEAMOS LA DATA DE ASCCI A EBCDIC PARA MENSAJE DE REQUEST AL NODO CICSREQUEST
+		SET CICSReqMsg = CAST (MsgIn as BLOB CCSID 037);
+		SET OutputRoot.BLOB.BLOB = CICSReqMsg;
+		RETURN TRUE;
+	END;
