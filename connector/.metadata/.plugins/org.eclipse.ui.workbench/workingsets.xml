@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<workingSetManager>
-<workingSet editPageId="com.ibm.etools.mft.navigator.BrokerWorkingSet.AppLib" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1515445033434_1" label="[krakends]" name="[krakends]">
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/krakends" type="4"/>
-</workingSet>
-<workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1515444993623_0" label="Window Working Set" name="Aggregate for window 1515444993623"/>
-</workingSetManager>

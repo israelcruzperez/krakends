@@ -1,7 +1,0 @@
-/*EATE FUNCTION Main() RETURNS BOOLE*/
-	BEGIN
-
-		SET Environment.msg5 = CAST(CURRENT_TIMESTAMP AS CHAR) || ' - El codigo de abend es: ' || InputLocalEnvironment.CICS.AbendCode;
-		SET Environment.ERROR = InputLocalEnvironment.CICS.AbendCode;
-		RETURN TRUE;
-	END;

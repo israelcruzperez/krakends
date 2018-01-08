@@ -1,9 +1,0 @@
-CREATE COMPUTE MODULE CICSConnector_TimeOutFromCICS
-	CREATE FUNCTION Main() RETURNS BOOLEAN
-	BEGIN
-
-		SET Environment.msg5 = CAST(CURRENT_TIMESTAMP AS CHAR) || ' - ' || 'No se recibio respuesta de CICS en el tiempo esperado.';
-        SET Environment.ERROR = '';
-		RETURN TRUE;
-	END;
-END MODULE;
