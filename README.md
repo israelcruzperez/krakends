@@ -39,12 +39,12 @@ For example:
 Creating the configurable service:
 
 ```
-./iib mqsicreateconfigurableservice KRAKENNODE -c CICSConnection -o ESB2CICS -n cicsServer, securityIdentity -v tcp://<IP o nombre del servidor CICS>,cicsSI
+./iib mqsicreateconfigurableservice KRAKENNODE -c CICSConnection -o KRAKENDS -n cicsServer, securityIdentity -v tcp://<IP o nombre del servidor CICS>,KRAKENSI
 ```
 Creating the  Security Identity:
 
 ```
-./iib mqsisetdbparms KRAKENNODE -n cics::cicsSI -u <usuario CICS> -p <clave del usuario CICS>
+./iib mqsisetdbparms KRAKENNODE -n cics::KRAKENSI -u <usuario CICS> -p <clave del usuario CICS>
 ```
 Restart the execution node for the changes to take effect:
 
