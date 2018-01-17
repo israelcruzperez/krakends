@@ -22,7 +22,7 @@
         "parameters" : [ {
           "name" : "commarea",
           "in" : "query",
-          "type" : "string",
+          "type" : "boolean",
           "required" : true
         }, {
           "required" : true,
