@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<title>KrakenDS Project Documentation</title>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="israel.cruz">
+<link rel="shortcut icon" href="kraken.png">
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<!-- Global CSS -->
+<link rel="stylesheet"
+	href="assets/plugins/bootstrap/css/bootstrap.min.css">
+<!-- Plugins CSS -->
+<link rel="stylesheet"
+	href="assets/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="assets/plugins/prism/prism.css">
+<link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+<!-- Theme CSS -->
+<link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+	<div class="page-wrapper">
+		<!-- ******Header****** -->
+		<header id="header" class="header">
+			<div class="container">
+				<div class="branding">
+					<h1 class="logo">
+						<a href="index.html"> <span aria-hidden="true"
+							class="icon_documents_alt icon"></span> <span
+							class="text-highlight">Kraken </span><span class="text-bold">DS</span>
+						</a>
+					</h1>
+				</div>
+				<!--//branding-->
+				<ol class="breadcrumb">
+					<li><a href="index.html">Home</a></li>
+					<li class="active">Quick Start</li>
+				</ol>
+			</div>
+			<!--//container-->
+		</header>
+		<!--//header-->
+		<div class="doc-wrapper">
+			<div class="container">
+				<div id="doc-header" class="doc-header text-center">
+					<h1 class="doc-title">
+						<i class="icon fa fa-paper-plane"></i> Quick Start
+					</h1>
+					<div class="meta">
+						<i class="fa fa-clock-o"></i> Last updated: 17 de Enero, 2018
+					</div>
+				</div>
+				<!--//doc-header-->
+				<div class="doc-body">
+					<div class="doc-content">
+						<div class="content-inner">
+							<section id="download-section" class="doc-section">
+								<h2 class="section-title">Overview</h2>
+								<div class="section-block">
+									<p>
+										The following describes how to install the IIB 10
+										 docker and install Kraken DS in it. 
+										 You can access the IIB 10 project on docker, 
+										 with the original documentation 
+										 <a href="https://github.com/ot4i/iib-docker">here.</a>.
+									</p>
+									<a href="https://github.com/ot4i/iib-docker"
+										class="btn btn-green" target="_blank"><i
+										class="fa fa-download"></i> Download ot4i/iib-docker</a>
+								</div>
+							</section>
+							<!--//doc-section-->
+							<section id="installation-section" class="doc-section">
+								<h2 class="section-title">Buiding and deplying the docker image</h2>
+								<div id="step1" class="section-block">
+									<h3 class="block-title">Buiding the image</h3>
+									<p>
+										You can buid the image using the following standard  <a
+											href="https://docs.docker.com/get-started/">docker
+											</a> commands using the provided Docker File.
+									</p>
+									<p>
+										And can replace the line  "curl http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/integration/10.0.0.10-IIB-LINUX64-DEVELOPER.tar.gz \" 
+										by the URL where you have your licensed installation file. Example: "curl http://localhost/install/IBM/IIB10/IIB_V10.0.0.7_LINUX_X86-64.tar.gz"
+											<a href="https://docs.docker.com/get-started/">Docker
+											</a> using the provided Docker File.
+									</p>
+									<div class="code-block">
+										<h6>For example:</h6>
+										<p>
+											<code>cd 10.0.0.10</code>
+										</p>
+										<p>
+											<code>docker build -t iibv10image</code>
+										</p>
+										<p>This will create an image called iibv10image
+											occupying approximately 1.15GB of space (including the
+											size of the underlying base image of Ubuntu) in its
+											Docker local registry:</p>
+										<p>
+											<pre>	<code>REPOSITORY     TAG       IMAGE ID        CREATED          SIZE
+iibv10image    latest    b8403ecfcd0d    2 seconds ago    1.15GB
+ubuntu         14.04     132b7427a3b4    3 weeks ago      188MB</code>
+										</p>
+										</pre>
+									</div>
+									<!--//code-block-->
+								</div>
+								<!--//section-block-->
+								<div id="step2" class="section-block">
+									<h3 class="block-title">Running the container</h3>
+									<p>After creating a Docker image from the supplied files,
+									 you can run a container that will create and start an
+									  integration node to which you can deploy
+									   integration solutions.</p>
+									<p>To run a container from this image,
+										it is necessary to accept the terms of the license
+  										of IBM Integration Bus for Developers.
+  										This is achieved by specifying the
+  										environment variable LICENSE equal
+  										to accept when the image is executed.
+  										You can also see the terms of the
+  										license when setting this variable to see.
+  										If the variable is not established, it will be considered
+  										finished the container with a declaration of use.
+  										You can see the license in another language by configuring
+  										also the LANG environment variable.</p>
+									<p>In addition to accepting the license, you can specify
+										optionally an integration node name using the
+										NODENAME environment variable and a server name of
+										integration using the SERVERNAME environment variable.</p>
+										
+									<p>The last important point of configuration when
+										run a container from this image is the assignment
+										of ports. The Docker file exposes ports 4414 and
+										7800 by default, for the administration of the
+										integration node and the HTTP traffic of the server
+										integration, respectively. This means that you can
+										run with the -P indicator to assign automatically
+										These ports to the ports on your host. Alternatively,
+										you can use -p to expose and map any port
+										of your choice.</p>
+									
+									<h6>For example:</h6>
+										<p>
+											<code>docker run --name myNode -e LICENSE = accept -e NODENAME = MYNODE -e SERVERNAME = MYSERVER -P iibv10image</code>
+										</p>
+									
+								</div>
+								<!--//section-block-->
+								<div id="step3" class="section-block">
+									<h3 class="block-title">Starting the Docker</h3>
+									<p>To deploy the IBM Integration Bus BAR file
+									 by specifying a Docker volume that makes BAR
+									  files available when the container starts:</p>
+									<h6>For example:</h6>
+										<p>
+											<code>docker run --name myNode -v &lt;/local/path/to/BARs: /tmp/BAR&gt; -e LICENSE = accept -e NODENAME = MYNODE -e SERVERNAME = MYSERVER -P iibv10image</code>
+										</p>
+									<h6>The real command executed in the tests:</h6>
+										<p>
+											<code>docker run --name kraken -v /tmp/BAR -e LICENSE = accept -e NODENAME = KRAKENNODE -e SERVERNAME = KRAKENSERVER -P iibv10image</code>
+										</p>
+									<p>This command will execute a container that 
+									creates and starts an integration node called 
+									KRAKENNODE and exposes ports 4414 and 7800 on 
+									random ports on the host computer. </p>
+									<h6>At this point you can use:</h6>
+										<p>
+											<code>docker port &lt;container name&gt;</code>
+										</p>
+									
+									
+									
+									
+								</div>
+								<!--//section-block-->
+								
+								
+								
+								
+								
+								
+								<div id="step4" class="section-block">
+									<h3 class="block-title">Installing Kraken DS</h3>
+									<p>Installing Kraken DS requires four easy steps: 
+									</p>
+									<ul class="list list-unstyled">
+										<li><i class="fa fa-check"></i> Create the Excecution Server (effective runtime of IBM Integration Bus).</li>
+										<li><i class="fa fa-check"></i> Create the configurable service for the CICSRequest node.</li>
+										<li><i class="fa fa-check"></i> Set the dbparams with the user and password of the Security Identity.</li>
+										<li><i class="fa fa-check"></i> Deploy the broker archive file (BAR file) KrakenDS.bar.</li>
+									</ul>
+									<p>  Next the necessary commands for the execution of these tasks will be detailed.
+									</p>
+									<h6>
+									Locate the iib.sh command:</h6>
+									<p>Into the docker shell (view <a class="scrollto" href="https://github.com/ot4i/iib-docker">here</a>) all commands of this topic must be executed.</p>
+										<p>
+											<code>cd /opt/ibm/iib-10.0.0.10</code>
+										</p>
+										<h6>
+									<h6>
+									Creating the Excecution Server:</h6>
+										<p>
+											<code>./iib mqsicreateexecutiongroup &lt;Excecution node name (Broker)&gt; -e &lt;Excecution server name&gt;</code>
+										</p>
+										<h6>
+									With your objects names:</h6>
+										<p>
+											<code>./iib mqsicreateexecutiongroup KRAKENNODE -e krakenexcec</code>
+										</p>
+									
+									<h6>Creating the configurable service:</h6>
+									
+										<p>
+											<code>./iib mqsicreateconfigurableservice KRAKENNODE 
+											-c CICSConnection -o ESB2CICS -n cicsServer,
+											securityIdentity -v tcp://&lt;CICS Server Endpoint (Server Name or IP address)&gt;,cicsSI</code>
+										</p>
+									
+									<h6>Creating the Security Identity:</h6>
+									
+										<p>
+											<code>./iib mqsisetdbparms KRAKENNODE -n cics::cicsSI -u &lt;CICS User&gt; -p &lt;CICS User Password&gt;</code>
+										</p>
+									<h6>Restart the broker to take the changes:</h6>
+									
+										<p>
+											<code>./iib mqsistop KRAKENNODE</code>
+											<code>./iib mqsistart KRAKENNODE</code>
+										</p>
+										<p>To verify the installation, connect to the URL of the broker administrator:</p>		
+										<pre>
+											<code class="language-markup">http://&lt;ip docker&gt;:&lt;puerto (4414)&gt;/#api/0/executiongroups/</code>
+										</pre>						
+								</div>
+								<!--//section-block-->
+							</section>
+							<!--//doc-section-->
+
+							
+							<!--//doc-section-->
+							
+							<!--//doc-section-->
+							
+							<!--//doc-section-->
+							
+							<!--//doc-section-->
+							
+							<!--//doc-section-->
+						</div>
+						<!--//content-inner-->
+					</div>
+					<!--//doc-content-->
+					<div class="doc-sidebar hidden-xs">
+						<nav id="doc-nav">
+							<ul id="doc-menu" class="nav doc-menu" data-spy="affix">
+								<li><a class="scrollto" href="#download-section">Overview</a></li>
+								<li><a class="scrollto" href="#installation-section">Running KrakenDS on docker</a>
+									<ul class="nav doc-sub-menu">
+										<li><a class="scrollto" href="#step1">Buiding docker</a></li>
+										<li><a class="scrollto" href="#step2">Executing</a></li>
+										<li><a class="scrollto" href="#step3">Starting the Docker</a></li>
+										<li><a class="scrollto" href="#step4">Installing Kraken DS</a></li>
+									</ul> <!--//nav--></li>
+								
+							</ul>
+							<!--//doc-menu-->
+						</nav>
+					</div>
+					<!--//doc-sidebar-->
+				</div>
+				<!--//doc-body-->
+			</div>
+			<!--//container-->
+		</div>
+		<!--//doc-wrapper-->
+
+		<!--//promo-block-->
+
+	</div>
+	<!--//page-wrapper-->
+
+	<footer class="footer text-center">
+        <div class="container">
+            <small class="copyright">A <a href="https://www.linkedin.com/in/israel-cruz-b9997429/">personal</a> effort with the impulse of the guru <a href="https://www.linkedin.com/in/orlando-medina-b64483/">Orlando Medina</a></small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+
+
+	<!-- Main Javascript -->
+	<script type="text/javascript"
+		src="assets/plugins/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript"
+		src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+	<script type="text/javascript"
+		src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript"
+		src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
+
+</body>
+</html>
+
