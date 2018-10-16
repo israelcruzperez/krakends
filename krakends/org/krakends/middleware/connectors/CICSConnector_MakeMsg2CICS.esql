@@ -17,7 +17,8 @@ CREATE COMPUTE MODULE CICSConnector_MakeMsg2CICS
 		SET MsgIn = InputLocalEnvironment.REST.Input.Parameters.commarea;
 		--EXTRAEMOS LA TRX A SER EJECUTADA
 		SET OutputLocalEnvironment.Destination.CICS.mirrorTran =
-		SUBSTRING(InputRoot.JSON.Data.CICSConnectorRequest.CommArea FROM 1 FOR 4);
+		SUBSTRING(MsgIn FROM 1 FOR 4);
+		--SUBSTRING(InputRoot.JSON.Data.CICSConnectorRequest.CommArea FROM 1 FOR 4); Fix en variable commarea para mirrortran
 		--SETEAMOS LA DATA DE ASCCI A EBCDIC PARA MENSAJE DE REQUEST AL NODO CICSREQUEST
 		SET CICSReqMsg = CAST (MsgIn as BLOB CCSID 037);
 		SET OutputRoot.BLOB.BLOB = CICSReqMsg;
